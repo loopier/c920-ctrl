@@ -1,0 +1,29 @@
+{
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "D506F6925B7C8D0508819DE90CBEA2E7369A306E" : 0,
+    "61A01F31214718FD2AE2EF78A34ADADFCB50C4E0" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "028DA7F8-166D-4251-91A6-D0334D669B78",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "D506F6925B7C8D0508819DE90CBEA2E7369A306E" : "..\/..\/addons\/ofxYAML",
+    "61A01F31214718FD2AE2EF78A34ADADFCB50C4E0" : "..\/..\/addons\/ofxUvcC920"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "C920-ctrl",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "C920-ctrl.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/atduskgreg\/ofxUVC.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "61A01F31214718FD2AE2EF78A34ADADFCB50C4E0"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/michaelbaisch\/ofxYAML.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "D506F6925B7C8D0508819DE90CBEA2E7369A306E"
+    }
+  ]
+}
