@@ -22,7 +22,10 @@ class ofApp : public ofBaseApp{
 		void mouseExited(int x, int y);
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
-		void gotMessage(ofMessage msg);
+    void gotMessage(ofMessage msg);
+    
+    void save();
+    void load();
     
     void    autoExposureChanged(bool & bAutoExposure);
     void    exposureChanged(float & exposure);

@@ -3,7 +3,7 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     
-    yaml.load("camerasettings.yml");
+    yaml.load("cameraDB.yml");
     int cameraToUse     = yaml["cameraToUse"].as<int>();
     int vendorId        = yaml["cameras"][cameraToUse]["vendorId"].as<int>();
     int productId       = yaml["cameras"][cameraToUse]["productId"].as<int>();
@@ -38,18 +38,31 @@ void ofApp::setup(){
     saturation.addListener(this, &ofApp::saturationChanged);
     sharpness.addListener(this, &ofApp::sharpnessChanged);
     
+    yaml.load("camerasettings.yml");
+    float autoExposureValue     = yaml["autoexposure"].as<int>();
+    float exposureValue     = yaml["exposure"].as<float>();
+    float autoFocusValue        = yaml["autofocus"].as<int>();
+    float focusValue        = yaml["focus"].as<float>();
+    float autoWhitebalanceValue = yaml["autowhitebalance"].as<int>();
+    float whitebalanceValue = yaml["whitebalance"].as<float>();
+    float gainValue         = yaml["gain"].as<float>();
+    float brightnessValue   = yaml["brightness"].as<float>();
+    float contrastValue     = yaml["contrast"].as<float>();
+    float saturationValue   = yaml["saturation"].as<float>();
+    float sharpnessValue    = yaml["sharpness"].as<float>();
+    
     gui.setup(name);
-    gui.add(autoexposure.set("autoexposure", true));
-    gui.add(exposure.set("exposure", 0.9, 0.0, 1.0));
-    gui.add(autofocus.set("autofocus", true));
-    gui.add(focus.set("focus", 0.1, 0.0, 1.0));
-    gui.add(autowhitebalance.set("autowhitebalance", true));
-    gui.add(whitebalance.set("whitebalance", 0.5, 0.0, 1.0));
-    gui.add(gain.set("gain", 0.15, 0.0, 1.0));
-    gui.add(brightness.set("brightness", 0.5, 0.0, 1.0));
-    gui.add(contrast.set("contrast", 0.5, 0.0, 1.0));
-    gui.add(saturation.set("saturation", 0.5, 0.0, 1.0));
-    gui.add(sharpness.set("sharpness", 0.5, 0.0, 1.0));
+    gui.add(autoexposure.set("autoexposure", autoExposureValue));
+    gui.add(exposure.set("exposure", exposureValue, 0.0, 1.0));
+    gui.add(autofocus.set("autofocus", autoFocusValue));
+    gui.add(focus.set("focus", focusValue, 0.0, 1.0));
+    gui.add(autowhitebalance.set("autowhitebalance", autoWhitebalanceValue));
+    gui.add(whitebalance.set("whitebalance", whitebalanceValue, 0.0, 1.0));
+    gui.add(gain.set("gain", gainValue, 0.0, 1.0));
+    gui.add(brightness.set("brightness", brightnessValue, 0.0, 1.0));
+    gui.add(contrast.set("contrast", contrastValue, 0.0, 1.0));
+    gui.add(saturation.set("saturation", saturationValue, 0.0, 1.0));
+    gui.add(sharpness.set("sharpness", sharpnessValue, 0.0, 1.0));
 }
 
 //--------------------------------------------------------------
@@ -62,6 +75,54 @@ void ofApp::update(){
 void ofApp::draw(){
     cam.draw(0,0);
     gui.draw();
+    ofDrawBitmapString("CMD-S to save / SPACEBAR to load", 20, ofGetHeight() - 40);
+}
+
+void ofApp::save(){
+    ofFile file("camerasettings.yml", ofFile::WriteOnly);
+    
+    string str = "";
+    str += "autoexposure: " + ofToString(autoexposure) + "\n";
+    str += "exposure: " + ofToString(exposure) + "\n";
+    str += "autofocus: " + ofToString(autofocus) + "\n";
+    str += "focus: " + ofToString(focus) + "\n";
+    str += "autowhitebalance: " + ofToString(autowhitebalance) + "\n";
+    str += "whitebalance: " + ofToString(whitebalance) + "\n";
+    str += "gain: " + ofToString(gain) + "\n";
+    str += "brightness: " + ofToString(brightness) + "\n";
+    str += "contrast: " + ofToString(contrast) + "\n";
+    str += "saturation: " + ofToString(saturation) + "\n";
+    str += "sharpness: " + ofToString(sharpness);
+    file << str;
+    file.close();
+}
+
+void ofApp::load(){
+    
+    yaml.load("cameraDB.yml");
+    int cameraToUse     = yaml["cameraToUse"].as<int>();
+    int vendorId        = yaml["cameras"][cameraToUse]["vendorId"].as<int>();
+    int productId       = yaml["cameras"][cameraToUse]["productId"].as<int>();
+    int interfaceNum    = yaml["cameras"][cameraToUse]["interfaceNum"].as<int>();
+    string name            = yaml["cameras"][cameraToUse]["name"].as<string>();
+    int width           = yaml["cameras"][cameraToUse]["width"].as<int>();
+    int height          = yaml["cameras"][cameraToUse]["height"].as<int>();
+    
+    uvc.useCamera(vendorId, productId, interfaceNum);
+    
+    
+    yaml.load("camerasettings.yml");
+    autoexposure     = yaml["autoexposure"].as<int>();
+    exposure     = yaml["exposure"].as<float>();
+    autofocus        = yaml["autofocus"].as<int>();
+    focus        = yaml["focus"].as<float>();
+    autowhitebalance = yaml["autowhitebalance"].as<int>();
+    whitebalance = yaml["whitebalance"].as<float>();
+    gain        = yaml["gain"].as<float>();
+    brightness   = yaml["brightness"].as<float>();
+    contrast     = yaml["contrast"].as<float>();
+    saturation   = yaml["saturation"].as<float>();
+    sharpness    = yaml["sharpness"].as<float>();
 }
 
 void    ofApp::autoExposureChanged(bool & bAutoExposure)
@@ -121,7 +182,8 @@ void    ofApp::sharpnessChanged(float & sharpness)
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-
+    if(key == ' ') load();
+    if(key == 's' && ofGetKeyPressed(OF_KEY_COMMAND)) save();
 }
 
 //--------------------------------------------------------------
